@@ -1,11 +1,15 @@
-package com.geektech.android3dz1mvvm.ui.viewmodel
+package com.geektech.android3dz1mvvm.ui.fragments
 
-import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.geektech.android3dz1mvvm.model.ModelBook
 
 class SecondViewModel: ViewModel() {
+
     private val bookModelList:ArrayList<ModelBook> = ArrayList()
+    private var list= MutableLiveData<String>()
+    var listString: LiveData<String> = list
 
     fun getListOfCatHTP(): ArrayList<ModelBook> {
 

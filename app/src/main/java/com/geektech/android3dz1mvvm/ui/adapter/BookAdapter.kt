@@ -1,14 +1,24 @@
 package com.geektech.android3dz1mvvm.ui.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.geektech.android3dz1mvvm.databinding.ItemBookBinding
 import com.geektech.android3dz1mvvm.model.ModelBook
 
-class AdapterBook(private val listBook: MutableList<ModelBook>, val onItemClick:(modelBook: ModelBook) ->Unit)
-    : RecyclerView.Adapter<AdapterBook.AdapterViewHolder>() {
+class BookAdapter(private var listBook: MutableList<ModelBook>,
+                  val onItemClick:(modelBook: ModelBook) ->Unit)
+    : RecyclerView.Adapter<BookAdapter.AdapterViewHolder>() {
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setupObserves(listBook: MutableList<ModelBook>){
+        this.listBook = listBook
+        notifyDataSetChanged()
+    }
 
     inner class AdapterViewHolder( var binding: ItemBookBinding)
         :RecyclerView.ViewHolder(binding.root) {
