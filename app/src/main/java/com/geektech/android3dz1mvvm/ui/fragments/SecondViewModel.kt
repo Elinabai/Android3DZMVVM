@@ -1,19 +1,17 @@
 package com.geektech.android3dz1mvvm.ui.fragments
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.geektech.android3dz1mvvm.model.ModelBook
 
+@Suppress("UNREACHABLE_CODE", "CAST_NEVER_SUCCEEDS")
 class SecondViewModel: ViewModel() {
 
-    private val bookModelList:ArrayList<ModelBook> = ArrayList()
-    private var list= MutableLiveData<String>()
-    var listString: LiveData<String> = list
+    private var list: MutableLiveData<ArrayList<ModelBook>> = MutableLiveData()
+    fun getListBook(): MutableLiveData<ArrayList<ModelBook>> {
 
-    fun getListOfCatHTP(): ArrayList<ModelBook> {
+        val bookModelList: ArrayList<ModelBook> = ArrayList()
 
-        bookModelList.clear()
         bookModelList.add(
             ModelBook(
                 "https://static.detmir.st/media_out/494/929/4929494/450/0.jpg?1662437224508",
@@ -50,7 +48,8 @@ class SecondViewModel: ViewModel() {
                 "Ведьмин котел"
             )
         )
-        return bookModelList
+        list.value = bookModelList
+        return list
     }
-
 }
+

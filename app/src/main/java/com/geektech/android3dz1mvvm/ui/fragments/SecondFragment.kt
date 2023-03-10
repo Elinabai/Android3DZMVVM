@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isInvisible
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.geektech.android3dz1mvvm.databinding.FragmentSecondBinding
@@ -33,27 +34,27 @@ class SecondFragment : Fragment() {
 
         viewModel = ViewModelProvider(this)[SecondViewModel::class.java]
 
-        setUpListeners()
-        clear()
         initialization()
         setupObserves()
+        setUpListeners()
+    }
 
+    private fun initialization() {
+        binding.rvBook.adapter = adapterBook
+    }
+
+    private fun setupObserves() {
+        viewModel?.getListBook()?.observe(viewLifecycleOwner) { it ->
+            adapterBook.setupObserves(it as ArrayList<ModelBook>)
+        }
     }
 
     private fun setUpListeners() {
         binding.btnOpen.setOnClickListener {
+
             binding.btnOpen.isInvisible = true
             binding.rvBook.isInvisible = false
         }
-    }
-
-    private fun clear() {
-        listBook.clear()
-    }
-
-    private fun initialization() {
-        viewModel?.let { listBook.addAll(it.getListOfCatHTP()) }
-        binding.rvBook.adapter = adapterBook
     }
 
     private fun onItemClick(modelBook: ModelBook) {
@@ -62,11 +63,6 @@ class SecondFragment : Fragment() {
             modelBook.name)
         )
     }
-
-    private fun setupObserves() {
-        viewModel?.listString?.observe(viewLifecycleOwner) {
-            binding.btnOpen.text = it.toString()
-            adapterBook.setupObserves(it as ArrayList<ModelBook>)
-        }
-    }
 }
+
+
